@@ -8,7 +8,7 @@ use Icecave\Flax\UniversalObject;
 use Idiot\Type;
 use Idiot\Utils\NamingUniversalObject;
 
-class Rest extends AbstractProtocol
+class Rest implements AbstractProtocol
 {
 
     public static $pathToRestCallback;

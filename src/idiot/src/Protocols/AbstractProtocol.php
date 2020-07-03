@@ -13,9 +13,9 @@
  */
 namespace Idiot\Protocols;
 
-abstract class AbstractProtocol
+interface  AbstractProtocol
 {
     const DEFAULT_DUBBO_VERSION = '2.8.4';
 
-    abstract public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion);
+    function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion);
 }
