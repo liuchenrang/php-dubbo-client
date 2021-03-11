@@ -9,3 +9,28 @@ php client use dubbo Hessian protocol call remote method
 - lornewang/idiot
 - crazyxman/hessian-parser 
 - icecave/collections
+
+```php
+$options = [
+    "conn" => "slb://{$ip}:{$port}?timeout=2&dubbo=2.7.5",
+    "path" => 'xxx.sss.service',
+    "protocol" => $protocol,
+];
+$options["group"] = 'user';
+$options["version"] = '1.0.1';
+SlbRegisterProtocol::addProtocolPort("dubbo", $port);
+$service = new Service($options);
+$result = $service->invoke('ping', [
+]);
+if (is_array($result)) {
+    list($result, $resp) = $result;
+    if ($result == 1 || $result == 4) {
+        return $resp;
+    } else {
+        Log::error('error:' . $resp->detailMessage);
+    }
+}else{
+    Log::error('error:' . $result);
+    return false;
+}
+```
