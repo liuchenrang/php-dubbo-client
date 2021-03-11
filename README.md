@@ -18,7 +18,6 @@ $options = [
 ];
 $options["group"] = 'user';
 $options["version"] = '1.0.1';
-SlbRegisterProtocol::addProtocolPort("dubbo", $port);
 $service = new Service($options);
 $result = $service->invoke('ping', [
 ]);
