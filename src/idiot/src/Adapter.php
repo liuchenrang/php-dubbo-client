@@ -14,7 +14,6 @@
 namespace Idiot;
 
 use Exception;
-use Idiot\Protocols\AbstractProtocol;
 
 class Adapter
 {
@@ -60,7 +59,7 @@ class Adapter
      * Load adapter instance of protocol
      *
      * @param  string $class
-     * @return AbstractProtocol
+     * @return object
      */
     public static function protocol($class)
     {

@@ -8,7 +8,7 @@ use Icecave\Flax\UniversalObject;
 use Idiot\Type;
 use Idiot\Utils\NamingUniversalObject;
 
-class Rest implements AbstractProtocol
+class Rest extends AbstractProtocol
 {
 
     public static $pathToRestCallback;
@@ -30,7 +30,7 @@ class Rest implements AbstractProtocol
         self::$pathToRestCallback = $callback;
     }
 
-    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion)
+    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion, $urlInfo)
     {
         if (self::$pathToRestCallback) {
             $callback = Rest::$pathToRestCallback;

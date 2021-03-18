@@ -28,25 +28,42 @@ class Service
     private $path = '';
     private $group = '';
     private $version = '';
+    private $urlInfo = [];
     private $dubboVersion = '2.8.4';
     private $protocol = 'dubbo';
     public static $registryMap = [];
     public static function addRegistryMap($scheme,$class){
         self::$registryMap[$scheme] = $class;
     }
-    public function __construct($options)
-    {
-        foreach ($options as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->$key = $value;
+    public  function setAttr($options){
+        if (is_array($options)){
+            foreach ($options as $key => $value) {
+                if (property_exists($this, $key)) {
+                    $this->$key = $value;
+                }
             }
         }
+    }
+    public function __construct($options)
+    {
+        $this->setAttr($options);
+
         if (empty($this->host) || empty($this->port)) {
 
+            $register = $this->getRegister($this->conn);
+            $service = $register->getProvider($this->path, $this->version, $this->protocol);
             $this->parseURItoProps(
-                $this->getRegister($this->conn)->getProvider($this->path, $this->version,$this->protocol)
+                $service
             );
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getUrlInfo()
+    {
+        return $this->urlInfo;
     }
 
     /**
@@ -57,7 +74,7 @@ class Service
     public function getRegister($url)
     {
         $urlInfo = parse_url($url);
-
+        $this->urlInfo = $urlInfo;
         $scheme = $urlInfo["scheme"];
         if (isset(self::$registryMap[$scheme])){
             return new self::$registryMap[$scheme]['class']($urlInfo);
@@ -95,7 +112,8 @@ class Service
             $args,
             $this->group,
             $this->version,
-            $this->dubboVersion
+            $this->dubboVersion,
+            $this->urlInfo
         );
     }
 
@@ -111,7 +129,8 @@ class Service
         parse_str($info['query'], $params);
         isset($info['host']) AND $this->host = $info['host'];
         isset($info['port']) AND $this->port = $info['port'];
+        isset($params['group']) AND $this->group = $params['group'];
         isset($params['version']) AND $this->version = $params['version'];
-        isset($params['dubbo']) && $params['dubbo'] AND $this->dubboVersion = $params['dubbo'];
+        isset($params['dubbo_version']) && $params['dubbo_version'] AND $this->dubboVersion = $params['dubbo_version'];
     }
 }

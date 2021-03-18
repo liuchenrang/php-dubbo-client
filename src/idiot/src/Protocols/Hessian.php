@@ -18,9 +18,9 @@ use Icecave\Flax\Serialization\Encoder;
 use Icecave\Flax\Serialization\Decoder;
 use Icecave\Flax\HessianClientFactory;
 
-class Hessian implements AbstractProtocol
+class Hessian extends AbstractProtocol
 {
-    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion = self::DEFAULT_DUBBO_VERSION)
+    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion = self::DEFAULT_DUBBO_VERSION, $urlInfo= [])
     {
         $client = new HessianClientFactory();
         list($data, $error) = $client->create("{$host}:{$port}")->doRequest($method, $args);

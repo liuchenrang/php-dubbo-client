@@ -13,9 +13,9 @@
  */
 namespace Idiot\Protocols;
 
-class JsonRPC implements AbstractProtocol
+class JsonRPC extends AbstractProtocol
 {
-    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion = self::DEFAULT_DUBBO_VERSION)
+    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion = self::DEFAULT_DUBBO_VERSION, $urlInfo = [])
     {
         // TODO
     }

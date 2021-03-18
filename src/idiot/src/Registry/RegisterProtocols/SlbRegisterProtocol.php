@@ -1,6 +1,5 @@
 <?php
 namespace Idiot\Registry\RegisterProtocols;
-
 use Idiot\Registry\Register;
 use Redis;
 class SlbRegisterProtocol implements Register{
@@ -36,11 +35,15 @@ class SlbRegisterProtocol implements Register{
             parse_str($this->urlInfo['query'],$args);
         }
         $provider = $this->urlInfo;
-        $dubbo = isset($args['dubbo'])?$args['dubbo']:"";
-        if (isset(self::$protocolPort[$protocol])){
-            $provider['port'] = self::$protocolPort[$protocol];
+        $dubboVersion = isset($args['dubbo_version'])?$args['dubbo_version']:"";
+        if (empty($dubboVersion)){
+            throw new \Exception("dubbo dubbo version missing");
         }
-        $url  = "{$protocol}://{$provider['host']}:{$provider['port']}?version={$version}&dubbo={$dubbo}";
+        $provider['port'] = isset($args['port'])?$args['port']:"";
+        if (empty($provider['port'])){
+            throw new \Exception("dubbo port missing");
+        }
+        $url  = "{$protocol}://{$provider['host']}:{$provider['port']}?".$this->urlInfo["query"];
         return $url;
     }
 }

@@ -40,11 +40,13 @@ class BaseDubbo implements AbstractProtocol
         }
         return $typeRefs;
     }
-    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion = self::DEFAULT_DUBBO_VERSION)
+    public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion = self::DEFAULT_DUBBO_VERSION,$urlInfo)
     {
         try {
 
             $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            socket_set_option($socket,SOL_SOCKET,SO_RCVTIMEO, array("sec" => 1, "usec" => 0));
+            socket_set_option($socket,SOL_SOCKET,SO_SNDTIMEO, array("sec" => 1, "usec" => 0));
             socket_connect($socket, $host, $port);
             $buffer = $this->buffer($path, $method, $args, $group, $version, $dubboVersion);
             if ($this->debug){
