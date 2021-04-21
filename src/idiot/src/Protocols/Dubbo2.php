@@ -26,7 +26,7 @@ use Idiot\Utility;
 use Icecave\Collections\Vector;
 use Icecave\Chrono\DateTime;
 
-class Dubbo2 extends BaseDubbo implements AbstractProtocol
+class Dubbo2 extends BaseDubbo
 {
     const DEFAULT_LANGUAGE = 'Java2';
     /**
@@ -36,6 +36,7 @@ class Dubbo2 extends BaseDubbo implements AbstractProtocol
     {
          $lang = Adapter::language(self::DEFAULT_LANGUAGE);
     }
+
 
 
 }

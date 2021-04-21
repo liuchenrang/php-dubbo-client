@@ -16,7 +16,7 @@ use Idiot\Utility;
 use Icecave\Collections\Vector;
 use Icecave\Chrono\DateTime;
 
-class BaseDubbo implements AbstractProtocol
+class BaseDubbo extends AbstractProtocol
 {
     /**
      * @var AbstractLanguage
