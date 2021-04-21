@@ -44,13 +44,12 @@ class Service
             }
         }
     }
-    public function __construct($options)
+    public function  __construct($options)
     {
         $this->setAttr($options);
 
         if (empty($this->host) || empty($this->port)) {
-
-            $register = $this->getRegister($this->conn);
+            $register = $this->getRegister($options);
             $service = $register->getProvider($this->path, $this->version, $this->protocol);
             $this->parseURItoProps(
                 $service
@@ -71,9 +70,9 @@ class Service
      * @return Register
      * @throws Exception
      */
-    public function getRegister($url)
+    public function getRegister($urlInfo)
     {
-        $urlInfo = parse_url($url);
+
         $this->urlInfo = $urlInfo;
         $scheme = $urlInfo["scheme"];
         if (isset(self::$registryMap[$scheme])){

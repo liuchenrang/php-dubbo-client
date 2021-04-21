@@ -34,7 +34,7 @@ class Dubbo2 extends BaseDubbo
      */
     public function __construct()
     {
-         $lang = Adapter::language(self::DEFAULT_LANGUAGE);
+         $this->lang = Adapter::language(self::DEFAULT_LANGUAGE);
     }
 
 

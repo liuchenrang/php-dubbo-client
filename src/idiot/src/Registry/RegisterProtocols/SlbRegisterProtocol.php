@@ -30,20 +30,22 @@ class SlbRegisterProtocol implements Register{
      */
     public function getProvider($path, $version = '', $protocol="dubbo")
     {
-        $args = [];
-        if (isset($this->urlInfo['query'])){
-            parse_str($this->urlInfo['query'],$args);
-        }
-        $provider = $this->urlInfo;
-        $dubboVersion = isset($args['dubbo_version'])?$args['dubbo_version']:"";
+        $args = $this->urlInfo;
+        $provider = parse_url($this->urlInfo['conn']);
+
+        $dubboVersion = isset($args['dubboVersion'])?$args['dubboVersion']:"";
         if (empty($dubboVersion)){
             throw new \Exception("dubbo dubbo version missing");
         }
-        $provider['port'] = isset($args['port'])?$args['port']:"";
         if (empty($provider['port'])){
             throw new \Exception("dubbo port missing");
         }
-        $url  = "{$protocol}://{$provider['host']}:{$provider['port']}?".$this->urlInfo["query"];
+
+        if ($provider['port'] != $args['port']){
+            throw new \Exception("slb的服务地址和dubbo地址不一样！");
+        }
+
+        $url  = "{$protocol}://{$provider['host']}:{$provider['port']}?".$provider["query"];
         return $url;
     }
 }
