@@ -22,7 +22,7 @@ class BaseDubbo extends AbstractProtocol
      * @var AbstractLanguage
      */
     protected $lang;
-    private $debug=true;
+    private $debug=false;
     private function typeRefs(&$args)
     {
         $typeRefs = '';
@@ -42,6 +42,9 @@ class BaseDubbo extends AbstractProtocol
     }
     public function connect($host, $port, $path, $method, $args, $group, $version, $dubboVersion = self::DEFAULT_DUBBO_VERSION,$urlInfo)
     {
+        if (isset($urlInfo['debug'])){
+            $this->debug = $urlInfo['debug'];
+        }
         try {
 
             $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
