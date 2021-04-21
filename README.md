@@ -4,11 +4,11 @@ php client use dubbo Hessian protocol call remote method
 
 # 请注意 
 本库依赖Dubbo Version2.7.(5-6),大于2.7.6由于更改参数描述过程，找不到对应方法，可以参考使用Dubbo2协议
-dubbo版本是2.7.8 配置参数如下 
+dubbo版本是2.7.7以上版本 配置参数如下 
 ```php 
 //config.php    
 return $host = [
-    'serverUser' => "slb://127.0.0.1:2100?timeout=2&dubbo_version=2.7.5&version=1.0.0&port=2100&protocol=dubbo2",
+    'serverUser' => "slb://127.0.0.1:2100?timeout=2&dubbo_version=自己到服务端dubbo版本&version=1.0.0&port=2100&protocol=dubbo2",
 ];
 ```
 
