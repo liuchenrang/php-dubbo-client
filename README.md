@@ -41,13 +41,14 @@ class DubboService
                 if (!empty($timeout)) {
                     $conn = self::reBuildQuery($conn, ['timeout' => $timeout]);
                 }
-                $options = [
-                    "conn" => $conn,
-                    "path" => $fpath
-                ];
-                self::$service[$fpath] = new Service($options);
+                $urlInfo = parse_url($conn);
+                parse_str($urlInfo['query'], $serverInfo);
+                $serverInfo["path"] = $fpath;
+                $serverInfo["conn"] = $conn;
+                $serverInfo["scheme"] = $urlInfo['scheme'];
+                self::$service[$fpath] = new Service($serverInfo);
             }
-    
+        
             return self::$service[$fpath];
         }
     
