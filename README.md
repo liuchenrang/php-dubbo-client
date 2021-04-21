@@ -8,7 +8,7 @@ dubbo版本是2.7.7以上版本 配置参数如下
 ```php 
 //config.php    
 return $host = [
-    'serverUser' => "slb://127.0.0.1:2100?timeout=2&dubbo_version=自己到服务端dubbo版本&version=1.0.0&port=2100&protocol=dubbo2",
+    'serverUser' => "slb://127.0.0.1:2100?timeout=2&dubboVersion=自己到服务端dubbo版本&version=1.0.0&port=2100&protocol=dubbo2",
 ];
 ```
 
@@ -22,7 +22,7 @@ return $host = [
 ```php 
 //config.php    
 return $host = [
-    'serverUser' => "slb://127.0.0.1:2100?timeout=2&dubbo_version=2.7.5&version=1.0.0&port=2100&protocol=dubbo",
+    'serverUser' => "slb://127.0.0.1:2100?timeout=2&dubboVersion=2.7.5&version=1.0.0&port=2100&protocol=dubbo",
 ];
 ```
 ```php
